@@ -3,8 +3,8 @@
  "short_name": "钱呢？",
  "start_url": "./",
  "display": "standalone",
- "background_color": "#FFD84A",
- "theme_color": "#FFD84A",
+ "background_color": "#F4EEE2",
+ "theme_color": "#F4EEE2",
  "icons": [
   {
    "src": "icon-180.png",
