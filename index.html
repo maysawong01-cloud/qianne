@@ -9,6 +9,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="钱呢？">
 <meta name="theme-color" content="#F4EEE2">
+<meta name="build" content="2026-11-15-3">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-180.png">
 <link rel="manifest" href="manifest.webmanifest">
@@ -1017,6 +1018,16 @@ headEl.addEventListener("touchend",ev=>{
 },{passive:true});
 renderAll();
 initStore();
+</script>
+<script>
+/* 打开时去线上看一眼有没有新版，有就换成新版（不动 ledger-v1 里的账）。输入框里有字时不打断。 */
+(function(){
+  const cur=(document.querySelector('meta[name="build"]')||{}).content||"";
+  const chk=()=>{ const say=document.getElementById("say"); if(say&&say.value) return;
+    fetch("./?nc="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.text():"").then(t=>{ const m=t.match(/name="build" content="([^"]+)"/);
+      if(m&&m[1]!==cur&&sessionStorage.getItem("upd")!==m[1]){ sessionStorage.setItem("upd",m[1]); location.replace("./?b="+encodeURIComponent(m[1])+location.hash); } }).catch(()=>{}); };
+  chk(); document.addEventListener("visibilitychange",()=>{ if(!document.hidden) chk(); });
+})();
 </script>
 </body>
 </html>
